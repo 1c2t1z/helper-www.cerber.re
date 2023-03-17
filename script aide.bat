@@ -5,6 +5,7 @@ setlocal EnableDelayedExpansion
 @color 0f
 ::=== DEMARRAGE ===
 :debut
+color 0f
 cls
 ::=== MENU PRINCIPAL ===
 echo.
@@ -12,19 +13,21 @@ set choixdisp=123
 set amount=3
 echo. [1] - HTML
 echo. [2] - CSS (pas creer)
-echo. [3] - exit
+echo.
+echo. [3] - quitter
 echo.
 choice /c !choixdisp:~0,%amount%! /N /M "- Que veux tu copier ?"  
 goto :%errorlevel% 
 ::=== HTML CONFIRMATION ===
 :1
+cls
 echo.
 set choixdisp=12
 set amount=2
 echo. [1] - OUI
 echo. [2] - NON
 echo.
-choice /c !choixdisp:~0,%amount%! /N /M "Tu as choisi HTML ?"  
+choice /c !choixdisp:~0,%amount%! /N /M "- Tu as choisi HTML ?"  
 goto :HTML_V%errorlevel%
 ::=== HTML VALIDATION ===
 REM OUI
@@ -49,23 +52,83 @@ echo. [3] - div content (contenu)
 echo. [4] - code (chgmt fonction language)
 echo. [5] - code (console cmd ou PS)
 REM 6 & 7 sont quasi pareil voir comment je peux les reunir
-echo. [6] - aside error (infobulle)
-echo. [7] - aside info (infobulle)
-echo. [8] - footer
-echo. [9] - Exit
+echo. [6] - aside (info et erreur)
+echo. [7] - footer
 echo.
-choice /c !choixdisp:~0,%amount%! /N /M "Que veux tu copier ?"  
+echo. [8] - suivant
+echo.
+echo. [9] - retour
+echo.
+choice /c !choixdisp:~0,%amount%! /N /M "- Que veux tu copier ?"  
 goto :HTMLc%errorlevel%
 
-::=== HTML choix 9 EXIT ===
+::=== HTML choix 9 BACK ===
 :HTMLc9
 cls
 color a
 echo.
-echo. fermeture du script en cours... !
-ping -n 3 127.0.0.1>nul
-exit
+echo. retour a l'accueil !
+ping -n 2 127.0.0.1>nul
+goto :debut
 
+:HTMLc8
+goto :HTML_SECONDARY_MENU
+
+:HTMLc7
+cls
+echo.
+echo un fichier va s'ouvrir il contient les donnees pour creer un footer.
+echo une fois la copie faites revenez sur ce script.
+echo.
+echo appuyez pour commencer
+pause > nul
+for /f "useback delims=" %%_ in (%0) do (
+  if "%%_"=="___ATAD1___" set $=
+if defined $ echo(%%_ >> %temp%\test.txt
+  if "%%_"=="___DATA1___" set $=1
+)
+goto :call_footer_html
+___DATA1___
+<footer><a href="/"><img src="mask-icon.svg" width="512" height="512" alt="">Cerber</a><ul id="copyfuck"><li>Aucun droit réservé - Fait par CT</li></ul></footer>
+___ATAD1___
+:call_footer_html
+call %temp%\test.txt
+pause
+del /q %temp%\test.txt
+cls
+echo.
+echo retour automatique vers le MENU HTML PRINCIPAL
+ping -n 4 127.0.0.1>nul
+goto :HTML_MAIN_MENU
+
+
+:HTMLc6
+
+:::=== HTML MENU SECONDAIRE ===
+:HTML_SECONDARY_MENU
+cls
+echo.
+echo HTML code a copier
+echo il est a noter que tout les codes sont generique
+echo donc il faut les remplir en fonction du besoin.
+echo.
+set choixdisp=12345678
+set amount=8
+echo. [1] - a definir
+echo. [2] - a definir
+echo. [3] - a definir
+echo. [4] - a definir
+echo. [5] - a definir
+echo. [6] - a definir
+echo. [7] - a definir
+echo.
+echo. [8] - retour
+echo.
+choice /c !choixdisp:~0,%amount%! /N /M "- Que veux tu copier ?"  
+goto :HTMLcc%errorlevel%
+
+:HTMLcc8
+goto :HTML_MAIN_MENU
 
 REM DEB CI 
 
