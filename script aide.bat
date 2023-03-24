@@ -1,13 +1,24 @@
+REM ### POUR LE BUG DES ACCENTS POUR FOOTER ET "A COMPLETER"
+REM ### IL FAUT CONVERTIR EN ANSI PUIS COMPLETER LES , PAR DES
+REM ### ACCENTS. FAIRE SAVE DU CODE AVANT. C'EST A FAIRE A LA
+REM ### TOUTE FIN.
+
 ::=== PREPARATION ===
 @echo off
 @title Script aide ~ Gnrateur code HTML ~ 1c2t1z
 @setlocal EnableExtensions EnableDelayedExpansion
 color 1f
 ::=== VARIABLE ===
-REM ESPACE INSECABLE POUR DEBUT LINE 2
+REM ESPACE INSECABLE LINE 2
 set "notepad.caution.message.line=2"
-set "notepad.caution.message.line1=- Lorsque vous avez termin, fermer le bloc note puis"
-set "notepad.caution.message.line2=ÿÿrevenez sur cette page..."
+set "notepad.caution.message.line1=- Lorsque vous avez termin, fermez le bloc note puis"
+set "notepad.caution.message.line2=ÿÿrevenez sur cette fenetre..."
+set "all.instruction.message.line=5"
+set "all.instruction.message.line1=ษออออออออออออออออออออออออออออออออออออออออออออออออออออออป"
+set "all.instruction.message.line2=บ INFO : Si par erreur vous etes arriv sur la         บ"
+set "all.instruction.message.line3=บ mauvaise rubrique suivez quand meme la procedure     บ"
+set "all.instruction.message.line4=บ standard : fermez le bloc note etc...                บ"
+set "all.instruction.message.line5=ศออออออออออออออออออออออออออออออออออออออออออออออออออออออผ"
 ::=== DEMARRAGE ===
 :start
 ::=== NETTOYAGE ===
@@ -54,12 +65,12 @@ echo บ                    HTML COPIE CODE                   บ
 echo ศออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
 echo ษออออออออออออออออออออออออออออออออออออออออออออออออออออออป
 echo บ NB : Il est a noter que certains code sont gnrique บ
-echo บ     donc a adapter en fonction de la situation.      บ
+echo บ donc a adapter en fonction de la situation.          บ
 echo บ                                                      บ
-echo บ INFO :   Au niveau du fonctionnement, vous faites    บ
-echo บ          votre choix parmis ceux propos juste au    บ
-echo บ          dessous puis un bloc note avec le code      บ
-echo บ          s'ouvre, vous copiez et fermez la fenetre.  บ
+echo บ INFO : Au niveau du fonctionnement, vous faites      บ
+echo บ votre choix parmis ceux propos juste au dessous     บ
+echo บ puis un bloc note avec le code s'ouvre, vous copiez  บ
+echo บ et fermez la fenetre.                                บ
 echo ศออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
 echo ษออออออออออออออออออออออออออออออออออออออออออออออออออออออป
 echo บ [A] - HEAD (meta, :og, favicon...)                   บ
@@ -82,11 +93,18 @@ if errorlevel 4 goto :html.precode.language
 if errorlevel 3 goto :html.main
 if errorlevel 2 goto :html.header
 if errorlevel 1 goto :html.head
-
 :html.footer
 cls
+echo ษออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+echo บ IMPORTANT : Pour la rubrique footer il y a une       บ
+echo บ exception concernant la page :"About". En effet il y บ
+echo บ a un easteregg avec les couleurs de google. Donc     บ
+echo บ pour pour cette rubrique ne pas utiliser le          บ
+echo บ gnrateur code HTML.                                บ
+echo ศออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+for /l %%A in (1,1,%all.instruction.message.line%) do (for /f "tokens=*" %%B in ("!all.instruction.message.line%%A!") do (echo %%B))
 echo.
-echo - Appuyez sur une touche pour commencer...
+echo - Veuillez appuyer sur une touche pour lancer la copie...
 pause > nul
 for /f "useback delims=" %%_ in (%0) do (
   if "%%_"=="___RETOOF___" set $=
