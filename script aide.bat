@@ -19,6 +19,13 @@ set "all.instruction.message.line2=บ INFO : Si par erreur vous etes arriv sur l
 set "all.instruction.message.line3=บ mauvaise rubrique suivez quand meme la procedure     บ"
 set "all.instruction.message.line4=บ standard : fermez le bloc note etc...                บ"
 set "all.instruction.message.line5=ศออออออออออออออออออออออออออออออออออออออออออออออออออออออผ"
+set "head.info.message.line=6"
+set "head.info.message.line1=ษออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+set "head.info.message.line2=บ INFO : Pas besoin de mettre les balises head en      บ
+set "head.info.message.line3=บ avec HTML 5 elles sont immdiatement reconnu. Par    บ
+set "head.info.message.line4=บ soucis d'optimisation je ne fournis que la version   บ
+set "head.info.message.line5=บ minify.                                              บ
+set "head.info.message.line6=ศออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
 ::=== DEMARRAGE ===
 :start
 ::=== NETTOYAGE ===
@@ -132,7 +139,7 @@ echo - Retour automatique vers le menu : "HTML COPIE CODE"...
 ping -n 4 127.0.0.1>nul
 goto :html
 :: 1 EN COURS
-:: ERROR PAGE FAIT, CLASSIC A FAIRE
+:: ERROR PAGE FAIT, CLASSIC EN COURS
 :html.head
 cls
 echo ษออออออออออออออออออออออออออออออออออออออออออออออออออออออป
@@ -152,12 +159,7 @@ if errorlevel 1 goto :html.head.error.page
 :html.head.error.page
 cls
 for /l %%A in (1,1,%all.instruction.message.line%) do (for /f "tokens=*" %%B in ("!all.instruction.message.line%%A!") do (echo %%B))
-echo ษออออออออออออออออออออออออออออออออออออออออออออออออออออออป
-echo บ INFO : Pas besoin de mettre les balises head en      บ
-echo บ avec HTML 5 elles sont immdiatement reconnu. Par    บ
-echo บ soucis d'optimisation je ne fournis que la version   บ
-echo บ minify.                                              บ
-echo ศออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+for /l %%A in (1,1,%head.info.message.line%) do (for /f "tokens=*" %%B in ("!head.info.message.line%%A!") do (echo %%B))
 echo.
 echo - Veuillez appuyer sur une touche pour lancer la copie...
 pause > nul
@@ -198,6 +200,57 @@ echo.
 for /l %%A in (1,1,%notepad.caution.message.line%) do (for /f "tokens=*" %%B in ("!notepad.caution.message.line%%A!") do (echo %%B))
 call %temp%\html-head-error-page.txt
 del /q %temp%\html-head-error-page.txt
+cls
+echo.
+echo - Retour automatique vers le menu : "HTML COPIE CODE"...
+ping -n 4 127.0.0.1>nul
+goto :html
+:html.head.classic.page
+cls
+for /l %%A in (1,1,%all.instruction.message.line%) do (for /f "tokens=*" %%B in ("!all.instruction.message.line%%A!") do (echo %%B))
+for /l %%A in (1,1,%head.info.message.line%) do (for /f "tokens=*" %%B in ("!head.info.message.line%%A!") do (echo %%B))
+echo.
+echo - Veuillez appuyer sur une touche pour lancer la copie...
+pause > nul
+for /f "useback delims=" %%_ in (%0) do (
+  if "%%_"=="___CISSALC-DAEH-LMTH___" set $=
+if defined $ echo(%%_ >> %temp%\html-head-classic-page.txt
+  if "%%_"=="___HTML-HEAD-CLASSIC___" set $=1
+)
+goto :call.html.head.classic.page
+___HTML-HEAD-CLASSIC___
+<html lang=fr prefix="og: https://ogp.me/ns#">
+    <meta charset=utf-8>
+    <title>Services | Cerber</title>
+    <meta content="Liens utiles pour les utilisateurs ayant un compte sur www.cerber.re." name=description>
+    <meta content="width=device-width,initial-scale=1" name=viewport>
+    <meta content="dark light" name=color-scheme>
+    <meta content=#fcfcff name=theme-color>
+    <meta content=#ffffff name=msapplication-TileColor>
+    <meta content=/mstile/144x144.png name=msapplication-TileImage>
+    <meta content="Cerber services" property=og:title>
+    <meta content="Liens utiles pour les utilisateurs ayant un compte sur www.cerber.re." property=og:description>
+    <meta content=https://www.cerber.re/services property=og:url>
+    <meta content=website property=og:type>
+    <meta content=https://www.cerber.re/icon/opengraph.png property=og:image>
+    <meta content=512 property=og:image:width>
+    <meta content=512 property=og:image:height>
+    <meta content="Cerber Logo" property=og:image:alt>
+    <meta content=Cerber property=og:site_name>
+    <link href=https://www.cerber.re/services rel=canonical>
+    <link href=/6ad46ada.main.css rel=stylesheet>
+    <link href=/mask-icon.svg rel=mask-icon color=#1a1c1e>
+    <link href=/favicon.svg rel=icon type=image/svg+xml>
+    <link href=/apple-touch-icon.png rel=apple-touch-icon>
+    <link href=/manifest.json rel=manifest>
+    <link href=/licence.txt rel=license>
+___CISSALC-DAEH-LMTH___
+:call.html.head.classic.page
+cls
+echo.
+for /l %%A in (1,1,%notepad.caution.message.line%) do (for /f "tokens=*" %%B in ("!notepad.caution.message.line%%A!") do (echo %%B))
+call %temp%\html-head-classic-page.txt
+del /q %temp%\html-head-classic-page.txt
 cls
 echo.
 echo - Retour automatique vers le menu : "HTML COPIE CODE"...
