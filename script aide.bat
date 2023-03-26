@@ -1,46 +1,45 @@
-:: ### POUR LE BUG DES ACCENTS POUR FOOTER ET "A COMPLETER"
-:: ### IL FAUT CONVERTIR EN ANSI PUIS COMPLETER LES , PAR DES
-:: ### ACCENTS. FAIRE SAVE DU CODE AVANT. C'EST A FAIRE A LA
-:: ### TOUTE FIN.
-
+:: ### BUG AVEC LES ! DANS LES TXT GENERE VOIR SI POSSIBLE
+:: ### DE RESOUDRE BUG
+chcp 65001 > nul
 ::=== PREPARATION ===
 @echo off
-@title Script aide ~ Gnrateur code HTML ~ 1c2t1z
-@setlocal EnableExtensions EnableDelayedExpansion
+@title Script aide ~ Gรฉnรฉrateur code HTML ~ 1c2t1z
+setlocal EnableDelayedExpansion
+setlocal EnableExtensions
 color 1f
 ::=== VARIABLE ===
 REM ESPACE INSECABLE LINE 2
 set "notepad.caution.message.line=2"
-set "notepad.caution.message.line1=- Lorsque vous avez termin, fermez le bloc note puis"
-set "notepad.caution.message.line2=ÿÿrevenez sur cette fenetre..."
+set "notepad.caution.message.line1=- Lorsque vous avez terminรฉ, fermez le bloc note puis"
+set "notepad.caution.message.line2=ย ย revenez sur cette fenetre..."
 set "all.instruction.message.line=5"
-set "all.instruction.message.line1=ษออออออออออออออออออออออออออออออออออออออออออออออออออออออป"
-set "all.instruction.message.line2=บ INFO : Si par erreur vous etes arriv sur la         บ"
-set "all.instruction.message.line3=บ mauvaise rubrique suivez quand meme la procedure     บ"
-set "all.instruction.message.line4=บ standard : fermez le bloc note etc...                บ"
-set "all.instruction.message.line5=ศออออออออออออออออออออออออออออออออออออออออออออออออออออออผ"
+set "all.instruction.message.line1=โ•”โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•—"
+set "all.instruction.message.line2=โ•‘ INFO : Si par erreur vous etes arrivรฉ sur la         โ•‘"
+set "all.instruction.message.line3=โ•‘ mauvaise rubrique suivez quand meme la procedure     โ•‘"
+set "all.instruction.message.line4=โ•‘ standard : fermez le bloc note etc...                โ•‘"
+set "all.instruction.message.line5=โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•"
 set "head.info.message.line=6"
-set "head.info.message.line1=ษออออออออออออออออออออออออออออออออออออออออออออออออออออออป
-set "head.info.message.line2=บ INFO : Pas besoin de mettre les balises head en      บ
-set "head.info.message.line3=บ avec HTML 5 elles sont immdiatement reconnu. Par    บ
-set "head.info.message.line4=บ soucis d'optimisation je ne fournis que la version   บ
-set "head.info.message.line5=บ minify.                                              บ
-set "head.info.message.line6=ศออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+set "head.info.message.line1=โ•”โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•—
+set "head.info.message.line2=โ•‘ INFO : Pas besoin de mettre les balises head en      โ•‘
+set "head.info.message.line3=โ•‘ avec HTML 5 elles sont immรฉdiatement reconnu. Par    โ•‘
+set "head.info.message.line4=โ•‘ soucis d'optimisation je ne fournis que la version   โ•‘
+set "head.info.message.line5=โ•‘ minify.                                              โ•‘
+set "head.info.message.line6=โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•
 ::=== DEMARRAGE ===
 :start
 ::=== NETTOYAGE ===
 if exist %temp%\html-*.txt (del /q %temp%\html-*.txt)
 ::=== MENU PRINCIPAL ===
 cls
-echo ษออออออออออออออออออออออออออออออออออออออออออออออออออออออป
-echo บ                     MENU PRINCIPAL                   บ
-echo ศออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
-echo ษออออออออออออออออออออออออออออออออออออออออออออออออออออออป
-echo บ [A] - HTML                                           บ
-echo บ [B] - CSS                                            บ
-echo บ                                                      บ
-echo บ [X] - QUITTER                                        บ
-echo ศออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+echo โ•”โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•—
+echo โ•‘                     MENU PRINCIPAL                   โ•‘
+echo โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•
+echo โ•”โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•—
+echo โ•‘ [A] - HTML                                           โ•‘
+echo โ•‘ [B] - CSS                                            โ•‘
+echo โ•‘                                                      โ•‘
+echo โ•‘ [X] - QUITTER                                        โ•‘
+echo โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•
 echo.
 choice /C:ABX /N /M "- [A/B/X] Quel est votre choix ? "
 if errorlevel 3  goto :exit
@@ -49,13 +48,13 @@ if errorlevel 1  goto :html.v
 ::=== HTML CONFIRMATION ===
 :html.v
 cls
-echo ษออออออออออออออออออออออออออออออออออออออออออออออออออออออป
-echo บ                    HTML VALIDATION                   บ
-echo ศออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
-echo ษออออออออออออออออออออออออออออออออออออออออออออออออออออออป
-echo บ [O] - OUI                                            บ
-echo บ [N] - NON                                            บ
-echo ศออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+echo โ•”โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•—
+echo โ•‘                    HTML VALIDATION                   โ•‘
+echo โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•
+echo โ•”โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•—
+echo โ•‘ [O] - OUI                                            โ•‘
+echo โ•‘ [N] - NON                                            โ•‘
+echo โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•
 echo.
 choice /C:ON /N /M "- [O/N] Etes-vous sur de votre choix ? "
 if errorlevel 2  goto :html.no
@@ -67,29 +66,29 @@ goto :start
 :::=== HTML MENU PRINCIPAL ===
 :html
 cls
-echo ษออออออออออออออออออออออออออออออออออออออออออออออออออออออป
-echo บ                    HTML COPIE CODE                   บ
-echo ศออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
-echo ษออออออออออออออออออออออออออออออออออออออออออออออออออออออป
-echo บ NB : Il est a noter que certains code sont gnrique บ
-echo บ donc a adapter en fonction de la situation.          บ
-echo บ                                                      บ
-echo บ INFO : Au niveau du fonctionnement, vous faites      บ
-echo บ votre choix parmis ceux propos juste au dessous     บ
-echo บ puis un bloc note avec le code s'ouvre, vous copiez  บ
-echo บ et fermez la fenetre.                                บ
-echo ศออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
-echo ษออออออออออออออออออออออออออออออออออออออออออออออออออออออป
-echo บ [A] - HEAD (meta, :og, favicon...)                   บ
-echo บ [B] - HEADER (nav id...)                             บ
-echo บ [C] - MAIN (main id, content...)                     บ
-echo บ [D] - PRE CODE (cmd, html, css, ps...)               บ
-echo บ [E] - PRE CODE (console like cmd, ps)                บ
-echo บ [F] - ASIDE (bulle info et erreur)                   บ
-echo บ [G] - FOOTER (copyfuck, mask-icon...)                บ
-echo บ                                                      บ
-echo บ [X] - AUCUN (revenir a l'accueil)                    บ
-echo ศออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+echo โ•”โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•—
+echo โ•‘                    HTML COPIE CODE                   โ•‘
+echo โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•
+echo โ•”โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•—
+echo โ•‘ NB : Il est a noter que certains code sont gรฉnรฉrique โ•‘
+echo โ•‘ donc a adapter en fonction de la situation.          โ•‘
+echo โ•‘                                                      โ•‘
+echo โ•‘ INFO : Au niveau du fonctionnement, vous faites      โ•‘
+echo โ•‘ votre choix parmis ceux proposรฉ juste au dessous     โ•‘
+echo โ•‘ puis un bloc note avec le code s'ouvre, vous copiez  โ•‘
+echo โ•‘ et fermez la fenetre.                                โ•‘
+echo โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•
+echo โ•”โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•—
+echo โ•‘ [A] - HEAD (meta, :og, favicon...)                   โ•‘
+echo โ•‘ [B] - HEADER (nav id...)                             โ•‘
+echo โ•‘ [C] - MAIN (main id, content...)                     โ•‘
+echo โ•‘ [D] - PRE CODE (cmd, html, css, ps...)               โ•‘
+echo โ•‘ [E] - PRE CODE (console like cmd, ps)                โ•‘
+echo โ•‘ [F] - ASIDE (bulle info et erreur)                   โ•‘
+echo โ•‘ [G] - FOOTER (copyfuck, mask-icon...)                โ•‘
+echo โ•‘                                                      โ•‘
+echo โ•‘ [X] - AUCUN (revenir a l'accueil)                    โ•‘
+echo โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•
 echo.
 choice /C:ABCDEFGX /N /M "- [A/B/C/D/E/F/G/X] Quel code voulez-vous copier ? "
 if errorlevel 8 goto :start
@@ -103,13 +102,13 @@ if errorlevel 1 goto :html.head
 :: 7 OK
 :html.footer
 cls
-echo ษออออออออออออออออออออออออออออออออออออออออออออออออออออออป
-echo บ IMPORTANT : Pour la rubrique footer il y a une       บ
-echo บ exception concernant la page :"About". En effet il y บ
-echo บ a un easteregg avec les couleurs de google. Donc     บ
-echo บ pour pour cette rubrique ne pas utiliser le          บ
-echo บ gnrateur code HTML.                                บ
-echo ศออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+echo โ•”โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•—
+echo โ•‘ IMPORTANT : Pour la rubrique footer il y a une       โ•‘
+echo โ•‘ exception concernant la page :"About". En effet il y โ•‘
+echo โ•‘ a un easteregg avec les couleurs de google. Donc     โ•‘
+echo โ•‘ pour pour cette rubrique ne pas utiliser le          โ•‘
+echo โ•‘ gรฉnรฉrateur code HTML.                                โ•‘
+echo โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•
 for /l %%A in (1,1,%all.instruction.message.line%) do (for /f "tokens=*" %%B in ("!all.instruction.message.line%%A!") do (echo %%B))
 echo.
 echo - Veuillez appuyer sur une touche pour lancer la copie...
@@ -123,7 +122,7 @@ goto :call.html.footer
 ___FOOTER___
 <footer><a href=/><img alt="" src=/mask-icon.svg height=512 width=512>Cerber</a>
     <ul id=copyfuck>
-        <li>Aucun droit rserv - Fait par CT
+        <li>Aucun droit rรฉservรฉ - Fait par CT
     </ul>
 </footer>
 ___RETOOF___
@@ -142,15 +141,15 @@ goto :html
 :: ERROR PAGE FAIT, CLASSIC EN COURS
 :html.head
 cls
-echo ษออออออออออออออออออออออออออออออออออออออออออออออออออออออป
-echo บ                  HEAD TYPE DE PAGE                   บ
-echo ศออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
-echo ษออออออออออออออออออออออออออออออออออออออออออออออออออออออป
-echo บ [A] - PAGE D'ERREUR                                  บ
-echo บ [B] - PAGE CLASSIQUE                                 บ
-echo บ                                                      บ
-echo บ [X] - RETOUR                                         บ
-echo ศออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+echo โ•”โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•—
+echo โ•‘                  HEAD TYPE DE PAGE                   โ•‘
+echo โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•
+echo โ•”โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•—
+echo โ•‘ [A] - PAGE D'ERREUR                                  โ•‘
+echo โ•‘ [B] - PAGE CLASSIQUE                                 โ•‘
+echo โ•‘                                                      โ•‘
+echo โ•‘ [X] - RETOUR                                         โ•‘
+echo โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•
 echo.
 choice /C:ABX /N /M "- [A/B/X] Etes-vous sur de votre choix ? "
 if errorlevel 3 goto :html
@@ -170,6 +169,7 @@ if defined $ echo(%%_ >> %temp%\html-head-error-page.txt
 )
 goto :call.html.head.error.page
 ___HTML-HEAD-ERROR___
+<!doctype html>
 <html lang=fr prefix="og: https://ogp.me/ns#">
     <meta charset=utf-8>
     <title>Erreur 401 | Cerber</title>
@@ -260,7 +260,7 @@ goto :html
 :css
 cls
 echo.
-echo - Rubrique pas encore crer, redmarrage du script en cours...
+echo - Rubrique pas encore crรฉer, redรฉmarrage du script en cours...
 ping -n 5 127.0.0.1>nul
 goto :start
 ::=== MENU PRINCIPAL -> QUITTER ===
