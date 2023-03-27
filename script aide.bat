@@ -261,8 +261,9 @@ cls
 echo ╔══════════════════════════════════════════════════════╗
 echo ║ IMPORTANT : Attention de ne pas oublier le "body"    ║
 echo ║ au dessus. De plus si il n'y a pas besoin de bouton  ║
-echo ║ les premières lignes peuvent etre supprimés. Tout    ║
-echo ║ dépend de la taille de la page.                      ║
+echo ║ les premières lignes peuvent etre supprimés (on      ║
+echo ║ laisse le noscript). Tout dépend de la taille de la  ║
+echo ║ page.                                                ║
 echo ╚══════════════════════════════════════════════════════╝
 for /l %%A in (1,1,%all.instruction.message.line%) do (for /f "tokens=*" %%B in ("!all.instruction.message.line%%A!") do (echo %%B))
 echo.
