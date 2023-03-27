@@ -1,5 +1,5 @@
 :: ### BUG AVEC LES ! DANS LES TXT GENERE VOIR SI POSSIBLE
-:: ### DE RESOUDRE BUG
+:: ### DE RESOUDRE BUG POUR L'INSTANT PAS DE DOCTYPE.
 chcp 65001 > nul
 ::=== PREPARATION ===
 @echo off
@@ -107,7 +107,7 @@ echo ║ IMPORTANT : Pour la rubrique footer il y a une       ║
 echo ║ exception concernant la page :"About". En effet il y ║
 echo ║ a un easteregg avec les couleurs de google. Donc     ║
 echo ║ pour pour cette rubrique ne pas utiliser le          ║
-echo ║ générateur code HTML.                                ║
+echo ║ générateur de code HTML.                             ║
 echo ╚══════════════════════════════════════════════════════╝
 for /l %%A in (1,1,%all.instruction.message.line%) do (for /f "tokens=*" %%B in ("!all.instruction.message.line%%A!") do (echo %%B))
 echo.
@@ -137,8 +137,7 @@ echo.
 echo - Retour automatique vers le menu : "HTML COPIE CODE"...
 ping -n 4 127.0.0.1>nul
 goto :html
-:: 1 EN COURS
-:: ERROR PAGE FAIT, CLASSIC EN COURS
+:: 1 FAIT
 :html.head
 cls
 echo ╔══════════════════════════════════════════════════════╗
@@ -251,6 +250,59 @@ echo.
 for /l %%A in (1,1,%notepad.caution.message.line%) do (for /f "tokens=*" %%B in ("!notepad.caution.message.line%%A!") do (echo %%B))
 call %temp%\html-head-classic-page.txt
 del /q %temp%\html-head-classic-page.txt
+cls
+echo.
+echo - Retour automatique vers le menu : "HTML COPIE CODE"...
+ping -n 4 127.0.0.1>nul
+goto :html
+:: 2 en cours...
+:html.header
+cls
+echo ╔══════════════════════════════════════════════════════╗
+echo ║ IMPORTANT : Attention de ne pas oublier le "body"    ║
+echo ║ au dessus. De plus si il n'y a pas besoin de bouton  ║
+echo ║ les premières lignes peuvent etre supprimés. Tout    ║
+echo ║ dépend de la taille de la page.                      ║
+echo ╚══════════════════════════════════════════════════════╝
+for /l %%A in (1,1,%all.instruction.message.line%) do (for /f "tokens=*" %%B in ("!all.instruction.message.line%%A!") do (echo %%B))
+echo.
+echo - Veuillez appuyer sur une touche pour lancer la copie...
+pause > nul
+for /f "useback delims=" %%_ in (%0) do (
+  if "%%_"=="___REDAEH___" set $=
+if defined $ echo(%%_ >> %temp%\html-header.txt
+  if "%%_"=="___HEADER___" set $=1
+)
+goto :call.html.header
+___HEADER___
+<button id=gotop tabindex=0 title="Revenir en haut">
+    <span class=gotop-text>TOP</span>
+    <span class=material-icons>arrow_upward</span>
+</button>
+<noscript><a href=/nojs><button id=gotopnojs tabindex=0 title="JavaScript n'est pas activé">
+    <span class=gotop-text>NOJS</span>
+    <span class=material-icons>error</span></button></a>
+</noscript>
+
+<header>
+    <nav id=site-menu>
+        <ul>
+            <li aria-current=page><a href=/><img alt="" src=/mask-icon.svg>Cerber</a>
+            <li><a href=/android/>Android</a>
+            <li><a href=/windows/>Windows</a>
+            <li><a href=/services>Services</a>
+            <li><a href=/about>A propos</a>
+            <li><a href=/contact>Contact</a>
+        </ul>
+    </nav>
+</header>
+___REDAEH___
+:call.html.header
+cls
+echo.
+for /l %%A in (1,1,%notepad.caution.message.line%) do (for /f "tokens=*" %%B in ("!notepad.caution.message.line%%A!") do (echo %%B))
+call %temp%\html-header.txt
+del /q %temp%\html-header.txt
 cls
 echo.
 echo - Retour automatique vers le menu : "HTML COPIE CODE"...
