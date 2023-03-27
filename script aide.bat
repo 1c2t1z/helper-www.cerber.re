@@ -19,12 +19,12 @@ set "all.instruction.message.line3=║ mauvaise rubrique suivez quand meme la pr
 set "all.instruction.message.line4=║ standard : fermez le bloc note etc...                ║"
 set "all.instruction.message.line5=╚══════════════════════════════════════════════════════╝"
 set "head.info.message.line=6"
-set "head.info.message.line1=╔══════════════════════════════════════════════════════╗
-set "head.info.message.line2=║ INFO : Pas besoin de mettre les balises head en      ║
-set "head.info.message.line3=║ avec HTML 5 elles sont immédiatement reconnu. Par    ║
-set "head.info.message.line4=║ soucis d'optimisation je ne fournis que la version   ║
-set "head.info.message.line5=║ minify.                                              ║
-set "head.info.message.line6=╚══════════════════════════════════════════════════════╝
+set "head.info.message.line1=╔══════════════════════════════════════════════════════╗"
+set "head.info.message.line2=║ INFO : Pas besoin de mettre les balises head en      ║"
+set "head.info.message.line3=║ avec HTML 5 elles sont immédiatement reconnu. Par    ║"
+set "head.info.message.line4=║ soucis d'optimisation je ne fournis que la version   ║"
+set "head.info.message.line5=║ minify.                                              ║"
+set "head.info.message.line6=╚══════════════════════════════════════════════════════╝"
 ::=== DEMARRAGE ===
 :start
 ::=== NETTOYAGE ===
@@ -82,24 +82,39 @@ echo ╔════════════════════════
 echo ║ [A] - HEAD (meta, :og, favicon...)                   ║
 echo ║ [B] - HEADER (nav id...)                             ║
 echo ║ [C] - MAIN (main id, content...)                     ║
-echo ║ [D] - PRE CODE (cmd, html, css, ps...)               ║
-echo ║ [E] - PRE CODE (console like cmd, ps)                ║
-echo ║ [F] - ASIDE (bulle info et erreur)                   ║
-echo ║ [G] - FOOTER (copyfuck, mask-icon...)                ║
+echo ║ [D] - PRE CODE (code et console like)                ║
+echo ║ [E] - ASIDE (bulle info et erreur)                   ║
+echo ║ [F] - FOOTER (copyfuck, mask-icon...)                ║
 echo ║                                                      ║
 echo ║ [X] - AUCUN (revenir a l'accueil)                    ║
 echo ╚══════════════════════════════════════════════════════╝
 echo.
-choice /C:ABCDEFGX /N /M "- [A/B/C/D/E/F/G/X] Quel code voulez-vous copier ? "
-if errorlevel 8 goto :start
-if errorlevel 7 goto :html.footer
-if errorlevel 6 goto :html.aside
-if errorlevel 5 goto :html.precode.console
-if errorlevel 4 goto :html.precode.language
+choice /C:ABCDEFX /N /M "- [A/B/C/D/E/F/X] Quel code voulez-vous copier ? "
+if errorlevel 7 goto :start
+if errorlevel 6 goto :html.footer
+if errorlevel 5 goto :html.aside
+if errorlevel 4 goto :html.precode
 if errorlevel 3 goto :html.main
 if errorlevel 2 goto :html.header
 if errorlevel 1 goto :html.head
-:: 7 OK
+:: 4 en cours...
+:html.precode
+cls
+echo ╔══════════════════════════════════════════════════════╗
+echo ║                     PRECODE TYPE                     ║
+echo ╚══════════════════════════════════════════════════════╝
+echo ╔══════════════════════════════════════════════════════╗
+echo ║ [A] - PRE CODE LANGUAGE (HTML/CSS/JS/CMD/PS...)      ║
+echo ║ [B] - CONSOLE LIKE (CMD/PS)                          ║
+echo ║                                                      ║
+echo ║ [X] - RETOUR                                         ║
+echo ╚══════════════════════════════════════════════════════╝
+echo.
+choice /C:ABX /N /M "- [A/B/X] Etes-vous sur de votre choix ? "
+if errorlevel 3 goto :html
+if errorlevel 2 goto :html.precode.console
+if errorlevel 1 goto :html.precode.language
+:: 6 OK
 :html.footer
 cls
 echo ╔══════════════════════════════════════════════════════╗
@@ -255,7 +270,7 @@ echo.
 echo - Retour automatique vers le menu : "HTML COPIE CODE"...
 ping -n 4 127.0.0.1>nul
 goto :html
-:: 2 en cours...
+:: 2 fait
 :html.header
 cls
 echo ╔══════════════════════════════════════════════════════╗
