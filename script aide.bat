@@ -101,9 +101,44 @@ if errorlevel 2 goto :html.header
 if errorlevel 1 goto :html.head
 :: 3 en dernier
 :html.main
-:: 7 a faire
+cls
+:: 7 en cours...
 :html.gotop
-:: 5 en cours...
+cls
+for /l %%A in (1,1,%all.instruction.message.line%) do (for /f "tokens=*" %%B in ("!all.instruction.message.line%%A!") do (echo %%B))
+echo ╔══════════════════════════════════════════════════════╗
+echo ║ INFO : GOTOP est à utiliser si la page est trop      ║
+echo ║ longue car cela permet de revenir facilement tout en ║
+echo ║ haut.                                                ║
+echo ║ Par contre, ce bouton se transforme en avertisseur   ║
+echo ║ de NOSCRIPT si l'user n'a pas activé JS. Dans tout   ║
+echo ║ les cas il faut ajouter les lignes contenu dans le   ║ 
+echo ║ bloc-note (j'indique où il faut les mettre)          ║
+echo ╚══════════════════════════════════════════════════════╝
+echo.
+echo - Veuillez appuyer sur une touche pour lancer la copie...
+pause > nul
+for /f "useback delims=" %%_ in (%0) do (
+  if "%%_"=="___POTOG___" set $=
+if defined $ echo(%%_ >> %temp%\html-gotop.txt
+  if "%%_"=="___GOTOP___" set $=1
+)
+goto :call.html.gotop
+___GOTOP___
+
+___POTOG___
+:call.html.gotop
+cls
+echo.
+for /l %%A in (1,1,%notepad.caution.message.line%) do (for /f "tokens=*" %%B in ("!notepad.caution.message.line%%A!") do (echo %%B))
+call %temp%\html-gotop.txt
+del /q %temp%\html-gotop.txt
+cls
+echo.
+echo - Retour automatique vers le menu : "HTML COPIE CODE"...
+ping -n 4 127.0.0.1>nul
+goto :html
+:: 5 a faire
 :html.aside
 cls
 echo ╔══════════════════════════════════════════════════════╗
