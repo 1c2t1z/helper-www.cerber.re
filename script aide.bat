@@ -18,13 +18,12 @@ set "all.instruction.message.line2=║ INFO : Si par erreur vous etes arrivé su
 set "all.instruction.message.line3=║ mauvaise rubrique suivez quand meme la procedure     ║"
 set "all.instruction.message.line4=║ standard : fermez le bloc note etc...                ║"
 set "all.instruction.message.line5=╚══════════════════════════════════════════════════════╝"
-set "head.info.message.line=6"
+set "head.info.message.line=5"
 set "head.info.message.line1=╔══════════════════════════════════════════════════════╗"
 set "head.info.message.line2=║ INFO : Pas besoin de mettre les balises head en      ║"
-set "head.info.message.line3=║ avec HTML 5 elles sont immédiatement reconnu. Par    ║"
-set "head.info.message.line4=║ soucis d'optimisation je ne fournis que la version   ║"
-set "head.info.message.line5=║ minify.                                              ║"
-set "head.info.message.line6=╚══════════════════════════════════════════════════════╝"
+set "head.info.message.line3=║ HTML 5 elles sont immédiatement reconnu. Par soucis  ║"
+set "head.info.message.line4=║ d'optimisation je ne fournis que la version minify.  ║"
+set "head.info.message.line5=╚══════════════════════════════════════════════════════╝"
 ::=== DEMARRAGE ===
 :start
 ::=== NETTOYAGE ===
@@ -85,23 +84,51 @@ echo ║ [C] - MAIN (main id, content...)                     ║
 echo ║ [D] - PRE CODE (code et console like)                ║
 echo ║ [E] - ASIDE (bulle info et erreur)                   ║
 echo ║ [F] - FOOTER (copyfuck, mask-icon...)                ║
+echo ║ [G] - GOTOP (bouton revenir en haut)                 ║
 echo ║                                                      ║
 echo ║ [X] - AUCUN (revenir a l'accueil)                    ║
 echo ╚══════════════════════════════════════════════════════╝
 echo.
-choice /C:ABCDEFX /N /M "- [A/B/C/D/E/F/X] Quel code voulez-vous copier ? "
-if errorlevel 7 goto :start
+choice /C:ABCDEFGX /N /M "- [A/B/C/D/E/F/G/X] Quel code voulez-vous copier ? "
+
+if errorlevel 8 goto :start
+if errorlevel 7 goto :html.gotop
 if errorlevel 6 goto :html.footer
 if errorlevel 5 goto :html.aside
 if errorlevel 4 goto :html.precode
 if errorlevel 3 goto :html.main
 if errorlevel 2 goto :html.header
 if errorlevel 1 goto :html.head
-:: 4 en cours...
+:: 3 en dernier
+:html.main
+:: 7 a faire
+:html.gotop
+:: 5 en cours...
+:html.aside
+cls
+echo ╔══════════════════════════════════════════════════════╗
+echo ║                   ASIDE BULLE TYPE                   ║
+echo ╚══════════════════════════════════════════════════════╝
+echo ╔══════════════════════════════════════════════════════╗
+echo ║ [A] - ASIDE INFO (BLEU + LOGO INFO)                  ║
+echo ║ [B] - ASIDE ERREUR (ROUGE + LOGO ERREUR)             ║
+echo ║                                                      ║
+echo ║ [X] - RETOUR                                         ║
+echo ╚══════════════════════════════════════════════════════╝
+echo.
+choice /C:ABX /N /M "- [A/B/X] Etes-vous sur de votre choix ? "
+if errorlevel 3 goto :html
+if errorlevel 2 goto :html.aside.error
+if errorlevel 1 goto :html.aside.info
+:: 4 fait
 :html.precode
 cls
 echo ╔══════════════════════════════════════════════════════╗
 echo ║                     PRECODE TYPE                     ║
+echo ╚══════════════════════════════════════════════════════╝
+echo ╔══════════════════════════════════════════════════════╗
+echo ║ INFO : Il ne faudra pas oublier d'appeler prism.js   ║
+echo ║ dans le head avec un script src.                     ║
 echo ╚══════════════════════════════════════════════════════╝
 echo ╔══════════════════════════════════════════════════════╗
 echo ║ [A] - PRE CODE LANGUAGE (HTML/CSS/JS/CMD/PS...)      ║
@@ -114,6 +141,96 @@ choice /C:ABX /N /M "- [A/B/X] Etes-vous sur de votre choix ? "
 if errorlevel 3 goto :html
 if errorlevel 2 goto :html.precode.console
 if errorlevel 1 goto :html.precode.language
+:html.precode.language
+cls
+for /l %%A in (1,1,%all.instruction.message.line%) do (for /f "tokens=*" %%B in ("!all.instruction.message.line%%A!") do (echo %%B))
+echo ╔══════════════════════════════════════════════════════╗
+echo ║ INFO : PRE CODE LANGUAGE n'est compatible qu'avec du ║
+echo ║ code : "Markup, HTML, XML, SVG, MathML, SSML, Atom,  ║
+echo ║ RSS, CSS, C-like, JavaScript, Batch, Powershell,     ║
+echo ║ Markdown". D'autre pourront être ajouté plus tard.   ║
+echo ╚══════════════════════════════════════════════════════╝
+echo.
+echo - Veuillez appuyer sur une touche pour lancer la copie...
+pause > nul
+for /f "useback delims=" %%_ in (%0) do (
+  if "%%_"=="___EGAUGNAL-EDOCERP___" set $=
+if defined $ echo(%%_ >> %temp%\html-precode-language.txt
+  if "%%_"=="___PRECODE-LANGUAGE___" set $=1
+)
+goto :call.html.precode.language
+___PRECODE-LANGUAGE___
+<pre><code class="language-html">&lt;figure&gt;
+  &lt;svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="-21 -21 42 42" width="100" height="100"&gt;
+    &lt;title>Smiling face&lt;/title>&gt;
+    &lt;circle r="20" fill="yellow" stroke="black"/&gt;
+    &lt;ellipse rx="2.5" ry="4" cx="-6" cy="-7" fill="black"/&gt;
+    &lt;ellipse rx="2.5" ry="4" cx="6" cy="-7" fill="black"/&gt;
+    &lt;path stroke="black" d="M -12,5 A 13.5,13.5,0 0,0 12,5 A 13,13,0 0,1 -12,5"/&gt;
+  &lt;/svg&gt;
+  &lt;figcaption&gt;
+  A description of the image.
+  &lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+___EGAUGNAL-EDOCERP___
+:call.html.precode.language
+cls
+echo.
+for /l %%A in (1,1,%notepad.caution.message.line%) do (for /f "tokens=*" %%B in ("!notepad.caution.message.line%%A!") do (echo %%B))
+call %temp%\html-precode-language.txt
+del /q %temp%\html-precode-language.txt
+cls
+echo.
+echo - Retour automatique vers le menu : "HTML COPIE CODE"...
+ping -n 4 127.0.0.1>nul
+goto :html
+:html.precode.console
+cls
+for /l %%A in (1,1,%all.instruction.message.line%) do (for /f "tokens=*" %%B in ("!all.instruction.message.line%%A!") do (echo %%B))
+echo ╔══════════════════════════════════════════════════════╗
+echo ║ INFO : PRE CODE CONSOLE n'est compatible qu'avec du  ║
+echo ║ code DOS et PS. Seul les commandes sont Highlight,   ║
+echo ║ pas la réponse de celle-ci.                          ║
+echo ╚══════════════════════════════════════════════════════╝
+echo.
+echo - Veuillez appuyer sur une touche pour lancer la copie...
+pause > nul
+for /f "useback delims=" %%_ in (%0) do (
+  if "%%_"=="___ELOSNOC-EDOCERP___" set $=
+if defined $ echo(%%_ >> %temp%\html-precode-console.txt
+  if "%%_"=="___PRECODE-CONSOLE___" set $=1
+)
+goto :call.html.precode.console
+___PRECODE-CONSOLE___
+<pre class="command-line language-batch" data-prompt="PS C:\Users\Chris>" data-output="2-19"><code class="language-batch">dir
+
+Directory: C:\Users\Chris
+
+Mode                LastWriteTime     Length Name
+----                -------------     ------ ----
+d-r--        10/14/2015   5:06 PM            Contacts
+d-r--        12/12/2015   1:47 PM            Desktop
+d-r--         11/4/2015   7:59 PM            Documents
+d-r--        10/14/2015   5:06 PM            Downloads
+d-r--        10/14/2015   5:06 PM            Favorites
+d-r--        10/14/2015   5:06 PM            Links
+d-r--        10/14/2015   5:06 PM            Music
+d-r--        10/14/2015   5:06 PM            Pictures
+d-r--        10/14/2015   5:06 PM            Saved Games
+d-r--        10/14/2015   5:06 PM            Searches
+d-r--        10/14/2015   5:06 PM            VideosMode</code></pre>
+___ELOSNOC-EDOCERP___
+:call.html.precode.console
+cls
+echo.
+for /l %%A in (1,1,%notepad.caution.message.line%) do (for /f "tokens=*" %%B in ("!notepad.caution.message.line%%A!") do (echo %%B))
+call %temp%\html-precode-console.txt
+del /q %temp%\html-precode-console.txt
+cls
+echo.
+echo - Retour automatique vers le menu : "HTML COPIE CODE"...
+ping -n 4 127.0.0.1>nul
+goto :html
 :: 6 OK
 :html.footer
 cls
