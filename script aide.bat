@@ -6,7 +6,7 @@ chcp 65001 > nul
 @title Script aide ~ Générateur code HTML ~ 1c2t1z
 setlocal EnableDelayedExpansion
 setlocal EnableExtensions
-color 1f
+color 0f
 ::=== VARIABLE ===
 REM ESPACE INSECABLE LINE 2
 set "notepad.caution.message.line=2"
@@ -24,6 +24,52 @@ set "head.info.message.line2=║ INFO : Pas besoin de mettre les balises head en
 set "head.info.message.line3=║ HTML 5 elles sont immédiatement reconnu. Par soucis  ║"
 set "head.info.message.line4=║ d'optimisation je ne fournis que la version minify.  ║"
 set "head.info.message.line5=╚══════════════════════════════════════════════════════╝"
+::=== SETUP BATBOX ===
+if not exist batbox.exe (goto :batbox) else (goto :start)
+:batbox
+:: BatBox - copyright (c) 2011 - 2014 Romain Garbi (Darkbatcher)
+:: copyright (c) 2014 Taz8
+:: This is licensed under BSD 3-clause license.
+for %%b in ( 
+4D5343460000000007040000000000002C000000000000000301010001000000
+000000004700000001000100000800000000000000006546B1AE200062617462
+6F782E65786500CD6A9177B8030008434BBD555D681C55143E936443FFCC6EB3
+196D91E214DA3EF421A06D404B03539368AA1B5D76B70D9442BA9B9DDD99CDEE
+CC323B3129BE44362BD4BCF820F86011438A08BE06D452D1BA292DA5A13E14A9
+5AA58AC82C2DD887D4F6A1CDF89D3B93660BC1F6C17A77BF3BE77CE7DC73BFFB
+B3B34347A64822A2368A90E711A9ECA0A9F4E83605743C77BA83E6D72F6EFF52
+8A2D6E4FE9464529DB56DE4E9794D1B4695A8E92D1147BDC540C53E97F33A994
+ACACD6FDD4861D2B35E203443149A2D87777532BDC750A4B1B25E9156A87D31E
+909126B03A7EB6100572A13F688ACFE7EF13B5368F7B9019B841DB16257AA6E5
+3116FB1FB7EE5C31EDE0A9870241EDBEEEE6768CB7E20937BD5F56A9E03FF417
+B9DB8BCE93AF77A9545DE82ADCF6E46B5195E6544EFB3B70F6C3711350DBF75E
+74EAA2F2BC97FB6A13EDFB703D62E1E93DE05FCDFF7EABF193E779EE667871AF
+471545FF4042A30E7AEA6D69245CEBC0FC9EEC62A6DAB7E1E9CFC1A33EBC5E5E
+75B8B651849908E162D2DC561EBD846374CFA06B0D2D7442CA2574B9B94116F4
+A9602F30FBBD605FE3497B0645EF0B70B9C4CBACEB3892CF87AE74FAF77C8E0D
+5D745F7472E255CCDAD8CA8963484C36B1D585750DE2C0258CBB133A8ABAF7E1
+866B37D0CFA6647F31BF72C64D6434AE2CC3FA0496FB0BBBE7D8BDC717DF936F
+B19A79266EB0065E8FFB1B5BBC86C64708E8C79AC4DF45BA7B96E3593EA7E6D0
+12572A70A559C44F9CF7E47B608631C7498EC411F142BC29B3ABFB35BBBA498D
+1F9050D8E2F5ECF7CF1E63FC7B21E931318BCFDF045FEDE5008E79112573D55E
+8EB7846BDFC0ABCFF4C6E19D583EFB57E49D3FF965D22AB6273E7C583FDDB47F
+91BAFB345416F049A2A8E036D5BD1D5FFF88A46A882F61DBCC367ECC3C5BFB39
+3CCD3FDCBAD7C3C78F2B24D2DB76566867769FF86E58FB62BF1551691EB8038C
+00CA66955E026A80037C0C5C0634A0018CE5D3A3D99235A1978F9BDD998CA871
+A66BB55E092F8AABF0E7A3ABDC24EC6BC0074DDCBBB04F46D7D634943CDC9748
+75F7C762F4FA40E28D81D89E17844387920389159BE85430FCD4833249DD9A18
+36CCAC3521DE7590D105EC0254E02850062681F781CF02D98F9B87DFABE6249D
+EC60DACC1635319FE6F45966C52A6A43785F3FCCA4B449E780E3D84666DCD11E
+8AF48DDB15CB8E5B15C3312C934725B47436081E34CBE3CE01CE2F6A5A798D71
+07CD9C15687904BFB2134BD0BF0CAC9389B6000AB05BF657F46F31EC826D984E
+8EAD91BCE68CEAC262B39436CCB49DAFC0D7260D47F06319DDB72A8EED58C5FF
+FFBFE249B67F00                                                  
+) Do >>t.dat (Echo.For b=1 To len^("%%b"^) Step 2
+ECHO WScript.StdOut.Write Chr^(Clng^("&H"^&Mid^("%%b",b,2^)^)^) : Next)
+Cscript /b /e:vbs t.dat>batbox.ex_
+Del /f /q /a t.dat >nul 2>&1
+Expand -r batbox.ex_ >nul 2>&1
+Del /f /q /a batbox.ex_ >nul 2>&1
 ::=== DEMARRAGE ===
 :start
 ::=== NETTOYAGE ===
@@ -102,7 +148,7 @@ if errorlevel 1 goto :html.head
 :: 3 en dernier
 :html.main
 cls
-:: 7 en cours...
+:: 7 fait
 :html.gotop
 cls
 for /l %%A in (1,1,%all.instruction.message.line%) do (for /f "tokens=*" %%B in ("!all.instruction.message.line%%A!") do (echo %%B))
@@ -125,7 +171,11 @@ if defined $ echo(%%_ >> %temp%\html-gotop.txt
 )
 goto :call.html.gotop
 ___GOTOP___
-
+--- A placer entre body et header en haut de la page ---
+<button id="gotop" title="Revenir en haut" tabindex="0"><span class="gotop-text">TOP</span><span class="material-icons">arrow_upward</span></button>
+<noscript><a href="/nojs"><button id="gotopnojs" title="JavaScript n'est pas activé" tabindex="0"><span class="gotop-text">NOJS</span><span class="material-icons">error</span></button></a></noscript>
+--- A placer entre le footer et le body en bas de la page ---
+<script src="/gotop.js" integrity="sha256-fNjNngp+JASpRMDrCctvzbsPHHXh7gCNPmSceos03Dw="></script>
 ___POTOG___
 :call.html.gotop
 cls
@@ -269,6 +319,7 @@ goto :html
 :: 6 OK
 :html.footer
 cls
+BATBOX /C 0xC
 echo ╔══════════════════════════════════════════════════════╗
 echo ║ IMPORTANT : Pour la rubrique footer il y a une       ║
 echo ║ exception concernant la page :"About". En effet il y ║
@@ -276,7 +327,9 @@ echo ║ a un easteregg avec les couleurs de google. Donc     ║
 echo ║ pour pour cette rubrique ne pas utiliser le          ║
 echo ║ générateur de code HTML.                             ║
 echo ╚══════════════════════════════════════════════════════╝
+BATBOX /C 0x3
 for /l %%A in (1,1,%all.instruction.message.line%) do (for /f "tokens=*" %%B in ("!all.instruction.message.line%%A!") do (echo %%B))
+BATBOX /C 0xf
 echo.
 echo - Veuillez appuyer sur une touche pour lancer la copie...
 pause > nul
@@ -410,6 +463,10 @@ ___HTML-HEAD-CLASSIC___
     <link href=/apple-touch-icon.png rel=apple-touch-icon>
     <link href=/manifest.json rel=manifest>
     <link href=/licence.txt rel=license>
+    <noscript><link rel="stylesheet" href="/noscript.css" /></noscript>
+    --- Optional things ---
+    <script src="/easteregg.js" integrity="sha256-frXBKA7QsbiPO1zI3zPXjUcvvs3eQyPNxEzgY+GGT6g="></script>
+    <script src="/prism.js" integrity="sha256-B0wUYI6hpAt7YQzF/v54kar//95PflBmHeD4ZHJFVGc="></script>
 ___CISSALC-DAEH-LMTH___
 :call.html.head.classic.page
 cls
@@ -426,11 +483,8 @@ goto :html
 :html.header
 cls
 echo ╔══════════════════════════════════════════════════════╗
-echo ║ IMPORTANT : Attention de ne pas oublier le "body"    ║
-echo ║ au dessus. De plus si il n'y a pas besoin de bouton  ║
-echo ║ les premières lignes peuvent etre supprimés (on      ║
-echo ║ laisse le noscript). Tout dépend de la taille de la  ║
-echo ║ page.                                                ║
+echo ║ IMPORTANT : Penser à modifier la position du aria en ║
+echo ║ fonction de la page qui est active.                  ║
 echo ╚══════════════════════════════════════════════════════╝
 for /l %%A in (1,1,%all.instruction.message.line%) do (for /f "tokens=*" %%B in ("!all.instruction.message.line%%A!") do (echo %%B))
 echo.
@@ -443,15 +497,7 @@ if defined $ echo(%%_ >> %temp%\html-header.txt
 )
 goto :call.html.header
 ___HEADER___
-<button id=gotop tabindex=0 title="Revenir en haut">
-    <span class=gotop-text>TOP</span>
-    <span class=material-icons>arrow_upward</span>
-</button>
-<noscript><a href=/nojs><button id=gotopnojs tabindex=0 title="JavaScript n'est pas activé">
-    <span class=gotop-text>NOJS</span>
-    <span class=material-icons>error</span></button></a>
-</noscript>
-
+<body>
 <header>
     <nav id=site-menu>
         <ul>
@@ -489,5 +535,7 @@ cls
 echo.
 echo - Nettoyage et fermeture du script en cours...
 if exist %temp%\html-*.txt (del /q %temp%\html-*.txt)
+REM BATBOX SE SUPPRIME UNIQUEMENT SI QUITTER PROPREMENT
+if exist batbox.exe (del /q batbox.exe)
 ping -n 3 127.0.0.1>nul
 goto :eof
